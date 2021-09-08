@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="script.js" defer></script>
+  <style>
+
+    *{
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: #000;
+      display: flex;
+      height: 100vh;
+    }
+    
+    .canvas {
+      max-width: 80%;
+      box-shadow: 0 0 1em #fff inset;
+      padding: 2em;
+      margin: auto;
+      width: 80%;
+      pointer-events: none;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-direction: column;
+    }
+
+    h1{
+      color: #fff;
+      text-align: center;
+    }
+
+    canvas{
+      box-shadow: 0 0 1em #fff inset;
+      padding: 2em;
+      width: 100%;
+    }
+  </style>
+</head>
+<body>
+  <div class="canvas">
+    <h1 id="freq"></h1>
+    <canvas id="visualizer"></canvas>
+  </div>
+</body>
+</html>
