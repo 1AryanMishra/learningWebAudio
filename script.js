@@ -64,7 +64,7 @@ function drawVisualizer() {
   }
   canvasContext.fillRect(freqHistory.length, height, height, 1)
 
-  if(freqHistory.length > 256){
+  if(freqHistory.length > width){
     freqHistory.splice(0, 1);
   }
 }

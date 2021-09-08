@@ -10,6 +10,9 @@
 
     *{
       margin: 0;
+      border: 0;
+      outline: 0;
+      border-radius: 12px;
       padding: 0;
     }
 
@@ -22,32 +25,31 @@
     .canvas {
       max-width: 80%;
       box-shadow: 0 0 1em #fff inset;
-      padding: 2em;
       margin: auto;
       width: 80%;
       pointer-events: none;
       display: flex;
-      justify-content: space-between;
       align-items: center;
       flex-direction: column;
     }
 
     h1{
-      color: #fff;
+      margin: 1em 0;
       text-align: center;
+      color: #fff;
+      box-shadow: 0 0 1em #fff;
     }
 
     canvas{
-      box-shadow: 0 0 1em #fff inset;
-      padding: 2em;
-      width: 100%;
+      margin: auto;
+      width: 90%;
     }
   </style>
 </head>
 <body>
   <div class="canvas">
-    <h1 id="freq"></h1>
     <canvas id="visualizer"></canvas>
+    <h1 id="freq"></h1>
   </div>
 </body>
 </html>
