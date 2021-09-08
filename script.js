@@ -59,12 +59,12 @@ function drawVisualizer() {
 
   for(var i = 0; i < freqHistory.length; i++){    
     canvasContext.fillStyle = `#fff`;
-    const y = (freqHistory[i]/255)*(height);
+    const y = height - (freqHistory[i]/256)*(height);
     canvasContext.fillRect(i, y, 2, 2);
   }
   canvasContext.fillRect(freqHistory.length, height, height, 1)
 
-  if(freqHistory.length > width){
+  if(freqHistory.length > (width*80)/100){
     freqHistory.splice(0, 1);
   }
 }
