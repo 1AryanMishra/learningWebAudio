@@ -42,8 +42,8 @@ function drawVisualizer() {
   requestAnimationFrame(drawVisualizer);
   
   const bufferLength = analyserNode.frequencyBinCount
-  const dataArray = new Float32Array(bufferLength)
-  analyserNode.getFloatFrequencyData(dataArray)
+  const dataArray = new Uint8Array(bufferLength)
+  analyserNode.getByteFrequencyData(dataArray)
   const width = visualizer.width
   const height = visualizer.height
   const barWidth = width / bufferLength
