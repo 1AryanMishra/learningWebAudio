@@ -63,9 +63,9 @@ function drawVisualizer() {
   
   canvasContext.beginPath();
   canvasContext.moveTo(0, height);
-  canvasContext.strokeStyle = '#fff';
+  canvasContext.strokeStyle = `#909090`;
   for(var i = 0; i < freqHistory.length; i++){
-    const y = height - (freqHistory[i]/46)*(height/20);
+    const y = height - (freqHistory[i]/46)*(height/10);
     canvasContext.lineTo(i, y);
   }
   canvasContext.moveTo(i, 0);
