@@ -7,7 +7,7 @@ var arr = document.getElementById("arr");
 var freqHistory = [];
 
 const context = new AudioContext()
-const analyserNode = new AnalyserNode(context)
+const analyserNode = new AnalyserNode(context);
 const sr = context.sampleRate;
 const ffts = analyserNode.fftSize;
 
@@ -61,14 +61,19 @@ function drawVisualizer() {
   freqHistory.push(maxi*(sr/ffts));
   freq.textContent = `${maxi*(sr/ffts)}`
   
-  for(var i = 0; i < freqHistory.length; i++){    
-    canvasContext.fillStyle = `#fff`;
-    const y = height - (freqHistory[i]/1024)*(height);
-    canvasContext.fillRect(i, y, 2, 2);
+  canvasContext.beginPath();
+  canvasContext.moveTo(0, height);
+  canvasContext.strokeStyle = '#fff';
+  for(var i = 0; i < freqHistory.length; i++){
+    const y = height - (freqHistory[i]/1023)*(height);
+    canvasContext.lineTo(i, y);
   }
-  canvasContext.fillRect(freqHistory.length, height, height, 1)
+  canvasContext.moveTo(i, 0);
+  canvasContext.lineTo(i, height);
 
-  if(freqHistory.length > (width*80)/100){
+  canvasContext.stroke();
+
+  if(freqHistory.length > (width*30)/100){
     freqHistory.splice(0, 1);
   }
 }
