@@ -33,11 +33,15 @@
       flex-direction: column;
     }
 
+    .canvas>#freq{
+      width: 100%;
+      display: flex;
+      justify-content: space-around;
+    }
+    
     h1{
-      margin-bottom: 1em;
-      text-align: center;
+      font-size: 2.5rem;
       color: #fff;
-      box-shadow: 0 0 1em #fff;
     }
 
     canvas{
@@ -49,8 +53,10 @@
 <body>
   <div class="canvas">
     <canvas id="visualizer"></canvas>
-    <h1 id="freq"></h1>
-    <h1 id="arr"></h1>
+    <div id="freq">
+      <h1 id="SingerFreq">SingerFreq</h1>
+      <h1 id="SongFreq">SongFreq</h1>
+    </div>
   </div>
 </body>
 </html>
