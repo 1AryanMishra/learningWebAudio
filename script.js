@@ -1,31 +1,41 @@
 const visualizer = document.getElementById('visualizer')
 var freq = document.getElementById("freq");
 var arr = document.getElementById("arr");
+var audio = new Audio('an.mp3');
 
-
+const singerCtx = new AudioContext();
+const singerAnalyser = singerCtx.createAnalyser();
+const sr = singerCtx.sampleRate;
+const ffts = singerAnalyser.fftSize;
 
 var freqHistory = [];
 
-const context = new AudioContext()
-const analyserNode = new AnalyserNode(context);
-const sr = context.sampleRate;
-const ffts = analyserNode.fftSize;
+const songCtx = new AudioContext()
+const songAnalyser = songCtx.createAnalyser();
+
+const ssr = songCtx.sampleRate;
+const sffts = songAnalyser.fftSize;
 
 setupContext()
 resize()
 drawVisualizer();
 
 async function setupContext() {
-  const guitar = await getGuitar()
-  if (context.state === 'suspended') {
-    await context.resume()
+  const singer = getSinger()
+  if (songCtx.state === 'suspended') {
+    await singerCtx.resume();
+    await songCtx.resume()
   }
-  const source = context.createMediaStreamSource(guitar)
-  source
-  .connect(analyserNode)
+  const SingerSource = singerCtx.createMediaStreamSource(singer);
+  SingerSource.connect(songAnalyser);
+
+  const SongSource = songCtx.createMediaElementSource(audio);
+  SongSource.connect(songAnalyser)
+  SongSource.connect(songCtx.destination)
+  audio.play();
 }
 
-function getGuitar() {
+function getSinger() {
   return navigator.mediaDevices.getUserMedia({
     audio: {
       latency: 0,
@@ -40,26 +50,29 @@ function getGuitar() {
 function drawVisualizer() {
 
   requestAnimationFrame(drawVisualizer);
+
+  const SingerBufferLength = singerAnalyser.frequencyBinCount;
+  const SingerDataArray = new Uint8Array(SingerBufferLength);
+  singerAnalyser.getByteFrequencyData(SingerDataArray);
   
-  const bufferLength = analyserNode.frequencyBinCount
-  const dataArray = new Uint8Array(bufferLength)
-  analyserNode.getByteFrequencyData(dataArray)
+  const SongBufferLength = songAnalyser.frequencyBinCount
+  const SongDataArray = new Uint8Array(SongBufferLength)
+  songAnalyser.getByteFrequencyData(SongDataArray)
   const width = visualizer.width
   const height = visualizer.height
-  const barWidth = width / bufferLength
 
   const canvasContext = visualizer.getContext('2d')
   canvasContext.clearRect(0, 0, width, height)
   
   var maxi = 0;
-  dataArray.forEach((item, index) => {
-    if(item > dataArray[maxi]){
+  SingerDataArray.forEach((item, index) => {
+    if(item > SingerDataArray[maxi]){
       maxi = index;
     }
   })
   
-  freqHistory.push(maxi*(sr/ffts));
-  freq.textContent = `${maxi*(sr/ffts)}`
+  freqHistory.push(maxi*(ssr/sffts));
+  freq.textContent = `${maxi*(ssr/sffts)}`
   
   canvasContext.beginPath();
   canvasContext.moveTo(0, height);
@@ -73,7 +86,7 @@ function drawVisualizer() {
 
   canvasContext.stroke();
 
-  if(freqHistory.length > (width*30)/100){
+  if(freqHistory.length > (width*90)/100){
     freqHistory.splice(0, 1);
   }
 }
