@@ -1,7 +1,9 @@
 const visualizer = document.getElementById('visualizer')
 var SingerFreq = document.getElementById("SingerFreq");
 var SongFreq = document.getElementById("SongFreq");
-var audio = new Audio('an.mp3');
+var audio = new Audio('naina.mp3');
+var SwitchBtn = document.getElementById("switch");
+
 
 const SingerCtx = new AudioContext();
 const SingerAnalyser = SingerCtx.createAnalyser();
@@ -82,7 +84,7 @@ function drawVisualizer() {
   canvasContext.moveTo(0, height);
   canvasContext.strokeStyle = `#909090`;
   for(var i = 0; i < SongFreqHistory.length; i++){
-    const y = height - (SongFreqHistory[i]/46)*(height/10);
+    const y = height - (SongFreqHistory[i]/46)*(height/20);
     canvasContext.lineTo(i, y);
   }
   canvasContext.moveTo(i, 0);
@@ -110,7 +112,7 @@ function drawVisualizer() {
   canvasContext.moveTo(0, height);
   canvasContext.strokeStyle = `#fff`;
   for(var i = 0; i < SingerFreqHistory.length; i++){
-    const y = height - (SingerFreqHistory[i]/46)*(height/10);
+    const y = height - (SingerFreqHistory[i]/46)*(height/20);
     canvasContext.lineTo(i, y);
   }
   canvasContext.moveTo(i, 0);
@@ -128,3 +130,8 @@ function resize() {
   visualizer.height = visualizer.clientHeight * window.devicePixelRatio
 }
 
+SwitchBtn.addEventListener("click", () => {
+  audio.src = 'an.mp3'
+  audio.load();
+  audio.play();
+});

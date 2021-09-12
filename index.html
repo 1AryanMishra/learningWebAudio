@@ -19,6 +19,7 @@
     body {
       background-color: #000;
       display: flex;
+      flex-direction: column;
       height: 100vh;
     }
     
@@ -40,13 +41,23 @@
     }
     
     h1{
-      font-size: 2.5rem;
+      font-size: 2rem;
       color: #fff;
     }
 
     canvas{
       margin: auto;
       width: 90%;
+    }
+
+    #switch{
+      font-size: 1rem;
+      font-weight: bold;
+      box-shadow: 0 0 1em #fff inset;
+      color: #000;
+      margin: auto;
+      background: #909090;
+      padding: 1em 2em;
     }
   </style>
 </head>
@@ -58,5 +69,6 @@
       <h1 id="SongFreq">SongFreq</h1>
     </div>
   </div>
+  <button id="switch">Switch Song</button>
 </body>
 </html>
